@@ -23,10 +23,9 @@ To Implement ELLIPTIC CURVE CRYPTOGRAPHY(ECC)
 5. Security: ECC’s security relies on the Elliptic Curve Discrete Logarithm Problem (ECDLP), making it highly secure with shorter key lengths compared to traditional methods like RSA.
 
 ## Program:
-```
+```.py
 import random
 
-# Elliptic Curve over Fp: y^2 = x^3 + a*x + b
 class Curve:
     def __init__(self, a, b, p, G):
         self.a = a
@@ -68,7 +67,6 @@ class Curve:
         return R
 
 
-# Example parameters
 p = 9739
 a = 497
 b = 1768
@@ -76,18 +74,17 @@ G = (1804, 5368)
 
 curve = Curve(a, b, p, G)
 
-# Key generation
+
 private_key = random.randint(1, p - 1)
 public_key = curve.mult(private_key, G)
 
 print("Private Key:", private_key)
 print("Public Key:", public_key)
 
-# Message encoding as a point (for demo)
-M = (4726, 3853)  # Pretend message point (must lie on curve)
+
+M = (4726, 3853)  
 print("\nMessage Point:", M)
 
-# Encryption
 k = random.randint(1, p - 1)
 C1 = curve.mult(k, G)
 C2 = curve.add(M, curve.mult(k, public_key))
@@ -96,7 +93,6 @@ print("\nCiphertext:")
 print("C1 =", C1)
 print("C2 =", C2)
 
-# Decryption
 S = curve.mult(private_key, C1)
 S_neg = (S[0], (-S[1]) % p)
 M_decrypted = curve.add(C2, S_neg)
